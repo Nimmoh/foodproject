@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_app/main.dart';
 
 class DetailsPage extends StatefulWidget {
   final heroTag;
@@ -21,7 +22,10 @@ class _DetailsPageState extends State<DetailsPage> {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.pop(
+                  context,
+                  
+                );
             },
             icon: Icon(Icons.arrow_back_ios),
             color: Colors.white,

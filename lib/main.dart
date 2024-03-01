@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/details_page.dart';
-import 'package:health_app/ui/login_screen.dart';
+import 'package:health_app/ui/login_page.dart';
+
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage(),
+      home: LoginPage(),
       debugShowCheckedModeBanner: false,
-      routes: {
-        '/': (context) => LoginScreen(),
-        '/home': (context) => MyHomePage(), // Replace with your home screen
-      },
+    
     );
   }
 }
@@ -168,7 +164,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: InkWell(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => DetailsPage(heroTag: imgPath, foodName: foodName, foodPrice: price)
+              builder: (context) => DetailsPage(foodName:'foodName' ,foodPrice:'foodPrice',
+                  heroTag:'heroTag',)
             ));
           },
           child: Row(
