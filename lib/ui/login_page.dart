@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:health_app/details_page.dart';
 import 'package:health_app/main.dart';
@@ -38,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
     final String password = _passwordController.text;
 
     // Replace the URL with your actual login API endpoint
-    final String apiUrl = 'https://example.com/api/login';
+    final String apiUrl = 'https://login-signup.p.rapidapi.com/394e9338b73a9f061b1968ceaa050a/login';
 
     try {
       final response = await http.post(
@@ -94,7 +96,8 @@ class _LoginPageState extends State<LoginPage> {
                 // For simplicity, let's just navigate to the home page
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => MyHomePage(token: 'Token: $token',),
+                  MaterialPageRoute(builder: (context) => MyHomePage(
+                    token: 'Token: $e0000cc068e0a1a760c8e94039bc9b9a8a033a759d018d6ff6f540eabe25f51ed1f30712c14cf4dfba50eb53cd86b363dd0e2b6a04abd6d8e8ce6e6d39875be6',),
                   ),
                 );
               },
