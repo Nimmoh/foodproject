@@ -33,6 +33,39 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  Future<void> _login() async {
+    final String username = _usernameController.text;
+    final String password = _passwordController.text;
+
+    // Replace the URL with your actual login API endpoint
+    final String apiUrl = 'https://example.com/api/login';
+
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        body: {'username': username, 'password': password},
+      );
+
+      if (response.statusCode == 200) {
+        // Parse the response data (assuming it's a JSON with a token field)
+        final Map<String, dynamic> data = json.decode(response.body);
+        final String token = data['token'];
+
+        // Navigate to the home page if authentication is successful
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => MyHomePage(token: token)),
+        );
+      } else {
+        // Handle authentication failure (show an error message, etc.)
+        print('Authentication failed: ${response.statusCode}');
+      }
+    } catch (error) {
+      // Handle network errors
+      print('Error during login: $error');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                 // For simplicity, let's just navigate to the home page
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => MyHomePage(),
+                  MaterialPageRoute(builder: (context) => MyHomePage(token: 'Token: $token',),
                   ),
                 );
               },
@@ -74,6 +107,20 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-// class MyHomePage extends StatelessWidget {
-//   // ... (The existing HomePage code remains the same)
-// }
+class MyHomePage extends StatelessWidget {
+  final String token;
+
+  MyHomePage({required this.token});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      body: Center(
+        child: Text('Token: $token'),
+      ),
+    );
+  }
+}
